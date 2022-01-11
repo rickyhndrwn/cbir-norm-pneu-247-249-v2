@@ -47,16 +47,16 @@ def index():
             file = request.files['query_img']
             img = Image.open(file.stream)  # PIL image
             query_img_name = file.filename
-            uploaded_img_path = "static/uploaded/" + datetime.now().isoformat().replace(":", ".") + "_" + file.filename
+            
         except:
             filename = request.form.get('query_img')
             img = Image.open(filename)
             query_img_name = filename.split('/')[-1]
-            uploaded_img_path = "static/uploaded/" + datetime.now().isoformat().replace(":", ".") + "_" + query_img_name
 
         query_img_class = query_img_name[0]
 
         # Save query image
+        uploaded_img_path = "static/uploaded/temp" + os.path.splitext(query_img_name)[1]
         img.save(uploaded_img_path)
         uploaded_img_path = '../' + uploaded_img_path
 
@@ -88,4 +88,4 @@ def index():
                                )
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

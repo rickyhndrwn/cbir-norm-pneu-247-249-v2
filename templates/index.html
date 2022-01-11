@@ -6,43 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="static/vendor/bootstrap/css/bootstrap.min.css">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="static/vendor/animate/animate.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="static/vendor/css-hamburgers/hamburgers.min.css">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="static/vendor/select2/select2.min.css">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="static/css/util.css">
     <link rel="stylesheet" type="text/css" href="static/css/main.css">
     <link rel="stylesheet" type="text/css" href="static/css/files.css">
-    <style>
-        #ïmag {
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            float: center;
-            width: 19%;
-        }
-
-        #input {
-            font-family: Poppins-Medium;
-            font-size: 15px;
-            line-height: 1.5;
-            color: #666666;
-            visibility: visible;
-            display: block;
-            width: 100%;
-            background: #e6e6e6;
-            height: 50px;
-            border-radius: 25px;
-            padding: 0 30px 0 68px;
-        }
-    </style>
     <!--===============================================================================================-->
 </head>
 
@@ -59,7 +27,7 @@
                     <img id="image-preview" alt="image preview" />
                 </div>
 
-                <!--query by upload -->
+                <!-- query by upload -->
                 <form class="login100-form validate-form" method=post enctype=multipart/form-data> <span
                     class="login100-form-title">
                     Upload an Image File
@@ -80,11 +48,11 @@
                         </button>
                     </div>                    
                 </form>
-                <!--query by upload -->
+                <!--query by upload end -->
                 
                 <!-- sample query -->
-                <br><br><br><br><br><br><br><br>
                 <h2 style="padding-left: 10px; padding-top: 10px">
+                    <br>
                     Select Sample Query (Class-Image.jpeg)
                 </h2>
                 <br>
@@ -119,6 +87,7 @@
                 </section>
                 <!-- sample query end -->
 
+                <!-- retrieval result -->
                 {% if scores %}
                 <div class="wrap-title"><br><br><br><br>
                     <span class="login100-form-mytitle">
@@ -129,8 +98,7 @@
                     </h1>
                 </div>
                 <div>
-                    <img style="padding-left: 10px;padding-top: 10px;padding-bottom: 10px;width: 70%;"
-                        src="{{query_path}}"/>
+                    <img style="padding-left: 10px;padding-top: 10px;padding-bottom: 10px;width: 70%;" src="{{query_path}}"/>
                 </div>
                 <div>
                     <br>
@@ -148,19 +116,12 @@
                     {% endfor %}
                 </div>
                 {% endif %}
+                <!-- retrieval result end -->
             </div>
         </div>
     </div>
 
     <!--===============================================================================================-->
-    <script src="static/vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="static/vendor/bootstrap/js/popper.js"></script>
-    <script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="static/vendor/select2/select2.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="static/vendor/tilt/tilt.jquery.min.js"></script>
     <script>
         $('.js-tilt').tilt({
             scale: 1.1
