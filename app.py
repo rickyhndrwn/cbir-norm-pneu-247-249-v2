@@ -6,16 +6,27 @@ from random import shuffle
 from tensorflow.keras.models import load_model
 import numpy as np
 import os
-import sys
 
 from feature_extractor import FeatureExtractor
 
 app = Flask(__name__)
 
+db_model_dir = './static/db_model'
+
+# model_dn121 = load_model(db_model_dir + '/cxr_dn121.h5', compile=False)
+model_dn169 = load_model(db_model_dir + '/cxr_dn169.h5', compile=False)
+model_dn201 = load_model(db_model_dir + '/cxr_dn201.h5', compile=False)
+
+db_model_dict = {
+    # 'cxr_dn121': model_dn121,
+    'cxr_dn169': model_dn169,
+    'cxr_dn201': model_dn201,
+}
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    db_model_dict, db_feature_dict, db_img_paths, random_test_image_dir, random_test_image_name = init_db_values_func()
+    db_feature_dict, db_img_paths, random_test_image_dir, random_test_image_name = init_db_values_func()
     
     if request.method == 'POST':
         try:
@@ -73,14 +84,7 @@ def index():
 def init_db_values_func():
     db_image_dir = './static/db_image'
     db_feature_dir = './static/db_feature'
-    db_model_dir = './static/db_model'
     db_test_image_dir = './static/db_test_image'
-
-    db_model_dict = {
-        # 'cxr_dn121': db_model_dir + '/cxr_dn121.h5',
-        'cxr_dn169': db_model_dir + '/cxr_dn169.h5',
-        'cxr_dn201': db_model_dir + '/cxr_dn201.h5',
-    }
 
     db_feature_dict = {
         # 'features_dn121': db_feature_dir + '/features_dn121.npy',
@@ -99,7 +103,8 @@ def init_db_values_func():
     shuffle(db_test_image_paths)
     random_test_image_dir = db_test_image_paths[:9]
     random_test_image_name = [img_dir.name for img_dir in random_test_image_dir]
-    return db_model_dict,db_feature_dict,db_img_paths,random_test_image_dir,random_test_image_name
+    
+    return db_feature_dict,db_img_paths,random_test_image_dir,random_test_image_name
 
 
 def find_y_pred_func(scores):
@@ -111,8 +116,8 @@ def find_y_pred_func(scores):
     return np.array(y_pred, dtype=int)
 
 
-def retrieve_images_func(extractor_dir, features_dir, db_img_paths, query_img, n_img):
-    extractor_class = FeatureExtractor(load_model(extractor_dir, compile=False))
+def retrieve_images_func(model, features_dir, db_img_paths, query_img, n_img):
+    extractor_class = FeatureExtractor(model)
     features = np.load(features_dir)
     
     query = extractor_class.extract(query_img)
