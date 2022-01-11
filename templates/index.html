@@ -104,8 +104,11 @@
                     <br>
                     <h2 style="padding-left: 10px;">
                         Last Retrieval Image Result
-                        <br>relevant image(s): {{eval_score}}
                     </h2>
+                    <h3 style="padding-left: 10px;">
+                        best model: {{ best_model }}
+                        <br>relevant image(s): {{eval_score}}
+                    </h3>
                     {% for row_num in range(5) %}
                     <br>
                         {% for col_num in range(5) %}
