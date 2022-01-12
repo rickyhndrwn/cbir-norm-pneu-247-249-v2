@@ -108,6 +108,10 @@
                     <h3 style="padding-left: 10px;">
                         best model: {{ best_model }}
                         <br>relevant image(s): {{eval_score}}
+                        <br>other result:
+                        {% for key, value in other_result_dict.items() %}
+                        <br>- {{ key }}: {{ value }}
+                        {% endfor %}
                     </h3>
                     {% for row_num in range(5) %}
                     <br>
